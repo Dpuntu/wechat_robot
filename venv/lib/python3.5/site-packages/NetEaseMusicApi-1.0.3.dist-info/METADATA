@@ -1,0 +1,60 @@
+Metadata-Version: 2.0
+Name: NetEaseMusicApi
+Version: 1.0.3
+Summary: A complete NetEase cloud music api
+Home-page: https://github.com/littlecodersh/NetEaseMusicApi
+Author: LittleCoder
+Author-email: i7meavnktqegm1b@qq.com
+License: MIT
+Keywords: NetEase music api python
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 2.6
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Requires-Dist: requests
+
+NetEaseMusicApi
+===============
+
+|Python2| |Python3|
+
+Complete api for NetEase Cloud Music
+
+**Usage**
+
+- api class provide common api uses, whose function based on url after '/api/'.
+
+.. code:: python
+
+    # take the api of http://music.163.com/api/song/detail as example
+    # /api/song/detail -> api.song.detail
+    # songId = 28377211
+    api.song.detail(28377211) 
+
+- provide basic functions like save songs and save albums as demo of api
+
+**Installation**
+
+.. code:: bash
+
+    pip install NetEaseMusicApi
+
+**Demo**
+
+.. code:: python
+
+    from NetEaseMusicApi import api, save_song, save_album
+    save_song('Apologize')
+
+.. |Python2| image:: https://img.shields.io/badge/python-2.7-ff69b4.svg
+.. |Python3| image:: https://img.shields.io/badge/python-3.5-red.svg
+
+
