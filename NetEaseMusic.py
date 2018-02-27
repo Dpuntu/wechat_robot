@@ -1,22 +1,36 @@
 # -*- coding: utf-8 -*-
 
 import json
-from urllib import parse, request
+from urllib import request
+
+HELP_MSG = u'''\
+欢迎使用微信网易云音乐
+音乐： 开始音乐
+关闭： 关闭歌曲
+歌名： 按照引导播放音乐\
+'''
 
 isOpen = False
 
 
 def query_music_info(name):
+    resStr = ""
+    sum = 0
     try:
-        baseurl = 'http://112.74.179.95/search?keywords=' + name
-        baseurl = str(baseurl.encode("utf-8")).replace(r"\x", "%")
-        req = request.Request(url=baseurl[2:-1])
+        baseUrl = 'http://112.74.179.95/search?keywords=' + name
+        baseUrl = str(baseUrl.encode("utf-8")).replace(r"\x", "%")
+        req = request.Request(url=baseUrl[2:-1])
         res = str(request.urlopen(req).read(), encoding="utf-8")
-        # music_url = 'http://112.74.179.95/music/url?id=' + str(json.loads(res)['result']['songs'][0]['id'])
-        # music_req = request.Request(url=music_url)
-        # music_res = str(request.urlopen(music_req).read(), encoding="utf-8")
-        # return json.loads(music_res)['data'][0]['url']
-        return "搜索到【" + name + "】,请快点击试听吧：http://music.163.com/song/" + str(
-            json.loads(res)['result']['songs'][0]['id']) + "/?userid=38631937"
+        data = json.loads(res)['result']
+        print(data)
+        for index in range(int(data['songCount'])):
+            sum += 1
+            music_id = data['songs'][index]['id']
+            music_name = data['songs'][index]['artists'][0]['name'] + "——" + data['songs'][index]['name']
+            resStr += "\n\n搜索到【" + music_name + "】,请快点击试听吧：http://music.163.com/song/" + str(
+                music_id) + "/?userid=38631937"
+        return "为您搜到" + str(sum) + "首音乐" + resStr
+    except IndexError:
+        return "为您搜到" + str(sum) + "首音乐" + resStr
     except Exception:
         return "哎呀呀，发生了未知错误或者音乐不存在"
