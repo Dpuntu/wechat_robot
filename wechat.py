@@ -8,8 +8,10 @@ import NetEaseMusic
 import HunSha
 import Tuling
 
-itchat.auto_login(enableCmdQR=2)
+itchat.auto_login()
 
+
+# itchat.auto_login(enableCmdQR=2)
 
 @itchat.msg_register(TEXT)
 def text_reply(msg):
@@ -49,6 +51,28 @@ def text_reply(msg):
                 return NetEaseMusic.query_music_info(text)
         else:
             return other_callback(text)
+
+
+chatroom_ids = ['3P群', '名字', '美满一家人', '幸福美满一家人']
+
+
+@itchat.msg_register([TEXT, SHARING, MAP, CARD, NOTE, SHARING, PICTURE, RECORDING, ATTACHMENT, VIDEO], isGroupChat=True)
+def group_reply_text(msg):
+    chatroom_id = msg['User']['NickName']
+    username = msg.actualNickName
+    if not chatroom_id in chatroom_ids:
+        return
+    if msg['Type'] == [TEXT]:
+        msg.user.send('@%s\u2005 %s' % (username, text_reply(msg)))
+    if msg['Type'] in [MAP, CARD, NOTE, SHARING]:
+        msg.user.send('@%s\u2005 %s %s' % (username, msg.type, msg.text))
+    if msg['Type'] in [PICTURE, RECORDING, ATTACHMENT, VIDEO]:
+        msg.download(msg.fileName)
+        typeSymbol = {
+            PICTURE: 'img',
+            VIDEO: 'vid', }.get(msg.type, 'fil')
+        msg.user.send('@%s\u2005' % username)
+        return '@%s@%s' % (typeSymbol, msg.fileName)
 
 
 @itchat.msg_register([MAP, CARD, NOTE, SHARING])
