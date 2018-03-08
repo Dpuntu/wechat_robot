@@ -8,7 +8,8 @@ import NetEaseMusic
 import HunSha
 import Tuling
 
-itchat.auto_login(enableCmdQR=2)
+# itchat.auto_login(enableCmdQR=2)
+itchat.auto_login()
 
 
 @itchat.msg_register(TEXT)

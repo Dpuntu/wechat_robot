@@ -24,9 +24,7 @@ def query_music_info(name):
     try:
         req = requests.get('http://112.74.179.95/search?keywords=' + name)
         req.encoding = "utf-8"
-        print req.text
         data = json.loads(req.text)['result']
-        print data
         for index in range(int(data['songCount'])):
             sum += 1
             music_name = "%s  %s" % (data['songs'][index]['artists'][0]['name'], data['songs'][index]['name'])
