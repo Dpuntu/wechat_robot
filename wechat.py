@@ -8,10 +8,9 @@ import NetEaseMusic
 import HunSha
 import Tuling
 
+# itchat.auto_login(enableCmdQR=2)
 itchat.auto_login()
 
-
-# itchat.auto_login(enableCmdQR=2)
 
 @itchat.msg_register(TEXT)
 def text_reply(msg):
@@ -62,7 +61,7 @@ def group_reply_text(msg):
     username = msg.actualNickName
     if not chatroom_id in chatroom_ids:
         return
-    if msg['Type'] == [TEXT]:
+    if msg['Type'] == TEXT:
         msg.user.send('@%s\u2005 %s' % (username, text_reply(msg)))
     if msg['Type'] in [MAP, CARD, NOTE, SHARING]:
         msg.user.send('@%s\u2005 %s %s' % (username, msg.type, msg.text))
@@ -131,7 +130,7 @@ def other_callback(text):
             msg = msg.replace('你', '我')
             if msg[-1] == '我':
                 msg = msg[:-1]
-                msg = msg + "你"
+                msg = "%s你" % msg
         else:
             msg = msg.replace('你', '我')
         return msg
@@ -140,7 +139,7 @@ def other_callback(text):
     elif '是不是' in text:
         return '是'
     elif '时间' in text or '几点' in text:
-        return "北京时间" + time.strftime("%Y-%m-%d %H:%M:%S")
+        return "北京时间 %s" % (time.strftime("%Y-%m-%d %H:%M:%S"))
     elif '音乐' in text:
         NetEaseMusic.isOpen = True
         return NetEaseMusic.HELP_MSG

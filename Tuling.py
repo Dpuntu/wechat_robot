@@ -16,8 +16,8 @@ def get_response(msg):
         res = requests.post(apiUrl, data=data).json()
         title = res.get('text')
         try:
-            return title + "\n\n" + res.get('url')
+            return "%s\n\n%s" % (title, res.get('url'))
         except Exception:
             return title
     except Exception:
-        return "本宝宝无法理解【" + msg + "】的含义"
+        return "本宝宝无法理解【%s】的含义" % msg
