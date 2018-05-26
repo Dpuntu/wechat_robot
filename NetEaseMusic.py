@@ -9,11 +9,11 @@ if sys.getdefaultencoding() != defaultencoding:
     reload(sys)
     sys.setdefaultencoding(defaultencoding)
 HELP_MSG = u'''\
-欢迎使用微信网易云音乐
-音乐： 开始音乐
-关闭： 关闭歌曲
-歌名： 按照引导播放音乐\
-'''
+    欢迎使用微信网易云音乐
+    打开音乐： 开始音乐
+    关闭音乐： 关闭歌曲
+    歌名： 按照引导播放音乐\
+    '''
 
 isOpen = False
 

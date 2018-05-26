@@ -7,6 +7,11 @@ from math import *
 import numpy as np
 
 np.set_printoptions(suppress=True)
+isOpen = False
+HELP_MSG = u'''\
+告诉我你的位置
+\
+'''
 
 
 def calcDistance(Lat_A, Lng_A, Lat_B, Lng_B):
@@ -38,4 +43,4 @@ def geocode(address):
 def distance(address_1, address_2):
     adr1 = geocode(address_1)
     adr2 = geocode(address_2)
-    print "%skm" % (str(calcDistance(float(adr1[0]), float(adr1[1]), float(adr2[0]), float(adr2[1]))))
+    return "%skm" % (str(calcDistance(float(adr1[0]), float(adr1[1]), float(adr2[0]), float(adr2[1]))))
